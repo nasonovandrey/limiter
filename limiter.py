@@ -7,12 +7,12 @@ class limiter:
         self.limit = limit
 
     def __call__(self, function):
-        def wrapper():
+        def wrapper(*args, **kwargs):
             current_time = time()
             if current_time-self.calls[0]<self.limit:
                 print(current_time, 'skipping')
             else:
-                function()
+                function(*args, **kwargs)
                 self.calls.append(current_time)
         return wrapper
 
